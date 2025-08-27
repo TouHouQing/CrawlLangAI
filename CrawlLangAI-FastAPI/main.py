@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional
-import crawl4ai
+from crawl4ai import AsyncWebCrawler
 import asyncio
 from bs4 import BeautifulSoup
 import re
@@ -22,21 +22,22 @@ async def crawl_website(request: CrawlRequest):
     爬取网页并提取为markdown格式
     """
     try:
-        # 使用crawl4ai爬取网页
-        result = await crawl4ai.crawl(
-            url=request.url,
-            timeout=request.timeout
-        )
-        
-        # 提取markdown内容
-        markdown_content = result.get_markdown()
-        
-        return {
-            "success": True,
-            "url": request.url,
-            "markdown": markdown_content,
-            "length": len(markdown_content)
-        }
+        # 使用crawl4ai的AsyncWebCrawler爬取网页
+        async with AsyncWebCrawler() as crawler:
+            result = await crawler.arun(
+                url=request.url,
+                timeout=request.timeout
+            )
+            
+            # 提取markdown内容
+            markdown_content = result.markdown
+            
+            return {
+                "success": True,
+                "url": request.url,
+                "markdown": markdown_content,
+                "length": len(markdown_content)
+            }
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"爬取失败: {str(e)}")
@@ -69,27 +70,27 @@ async def crawl_and_extract(request: CrawlRequest):
     完整的爬取和提取流程
     """
     try:
-        # 第一步：爬取网页
-        crawl_result = await crawl4ai.crawl(
-            url=request.url,
-            timeout=request.timeout
-        )
-        
-        markdown_content = crawl_result.get_markdown()
-        
-        # 第二步：提取关键信息
-        extracted_info = extract_key_points(
-            text=markdown_content,
-            max_length=200
-        )
-        
-        return {
-            "success": True,
-            "url": request.url,
-            "markdown_length": len(markdown_content),
-            "extracted_info": extracted_info,
-            "extracted_length": len(extracted_info)
-        }
+        # 第一步：使用crawl4ai的AsyncWebCrawler爬取网页
+        async with AsyncWebCrawler() as crawler:
+            result = await crawler.arun(
+                url=request.url,
+                timeout=request.timeout
+            )
+            markdown_content = result.markdown
+            
+            # 第二步：提取关键信息
+            extracted_info = extract_key_points(
+                text=markdown_content,
+                max_length=200
+            )
+            
+            return {
+                "success": True,
+                "url": request.url,
+                "markdown_length": len(markdown_content),
+                "extracted_info": extracted_info,
+                "extracted_length": len(extracted_info)
+            }
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"处理失败: {str(e)}")
