@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: CrawlLangAI
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: ${CHAT_MODEL:qwen-plus}
+          max-tokens: ${MAX_TOKEN:300}
+      embedding:
+        options:
+          model: ${EMBEDDING_MODEL:text-embedding-v3}
+      base-url: ${DASHSCOPE_BASE_URL:https://dashscope.aliyuncs.com}
+    memory:
+      redis:
+        host: ${HOST}
+        port: 6379
+        password: ${PASSWORD}
+        timeout: 2000
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/CrawlLangAI?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
