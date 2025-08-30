@@ -41,9 +41,9 @@ def extract_procurement_announcements(text: str) -> List[Dict]:
             continue
         
         announcements.append({
-            "announcement": announcement,
-            "link": link,
-            "date": date,
+            "title": announcement,
+            "url": link,
+            "release_date": date,
             "project_number": project_number
         })
     
@@ -51,7 +51,7 @@ def extract_procurement_announcements(text: str) -> List[Dict]:
     seen = set()
     unique_results = []
     for item in announcements:
-        unique_key = f"{item['announcement']}|{item['link']}"
+        unique_key = f"{item['title']}|{item['url']}"
         if unique_key not in seen:
             seen.add(unique_key)
             unique_results.append(item)
@@ -59,7 +59,7 @@ def extract_procurement_announcements(text: str) -> List[Dict]:
     return unique_results
 
 
-@app.get("/crawl_Tenders")
+@app.get("/crawl_tenders")
 async def crawl_tenders(url: str, timeout: Optional[int] = 30):
     """
     完整流程：爬取网页 → 提取公告 → 格式化结果
