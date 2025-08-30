@@ -78,8 +78,8 @@ async def crawl_tenders(url: str, timeout: Optional[int] = 30):
                 raise HTTPException(status_code=400, detail="爬取结果为空，未获取到文本内容")
 
             markdown_content = crawl_result.markdown
-
-        formatted_data = extract_procurement_announcements(markdown_content)
+            logger.info(crawl_result.html)
+            formatted_data = extract_procurement_announcements(markdown_content)
 
         # 3. 返回结果
         return {
