@@ -8,14 +8,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xxl.crawler.XxlCrawler;
 import com.xxl.crawler.pageloader.param.Response;
 import com.xxl.crawler.pageparser.PageParser;
-import com.xxl.crawler.proxy.ProxyPool;
-import com.xxl.crawler.proxy.strategy.RoundProxyPool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.Collections;
 
 /**
@@ -34,10 +30,6 @@ public class AnnouncementTitleServiceImpl extends ServiceImpl<AnnouncementTitleM
 
     @Override
     public void crawler() {
-        ProxyPool proxyPool = new RoundProxyPool();
-        proxyPool.addProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("218.95.37.251", 25003)));
-        proxyPool.addProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("221.229.212.173", 25144)));
-
         // 1. 配置爬虫（官网Builder模式，链式设置参数）
         XxlCrawler crawler = new XxlCrawler.Builder()
                 // 核心：爬虫入口URL（目标页面）
@@ -49,7 +41,6 @@ public class AnnouncementTitleServiceImpl extends ServiceImpl<AnnouncementTitleM
                 // 主动停顿：爬虫处理完页面后的停顿时间（官网强调：防反爬，单位毫秒）
                 .setPauseMillis(15*1000)
                 .setAllowSpread(false)
-                .setProxyPool(proxyPool)
                 // 超时时间：请求超时控制（官网推荐5000毫秒）
                 .setTimeoutMillis(5000)
                 // User-Agent：模拟浏览器（官网建议设置，避免被识别为爬虫）
@@ -77,7 +68,7 @@ public class AnnouncementTitleServiceImpl extends ServiceImpl<AnnouncementTitleM
                                     // 从title中提取项目编号并设置到实体类的projectNumber字段中
                                     String title = tender.getTitle();
                                     if (title != null && title.contains("项目编号:")) {
-                                        int start = title.indexOf("项目编号:") + 5; // "项目编号:"的长度为6
+                                        int start = title.indexOf("项目编号:") + 5;
                                         int end = title.indexOf(")", start);
                                         if (end != -1) {
                                             String projectNumber = title.substring(start, end);
@@ -114,5 +105,6 @@ public class AnnouncementTitleServiceImpl extends ServiceImpl<AnnouncementTitleM
 
         // 2. 启动爬虫（官网支持同步/异步：入参true=同步，false=异步）
         crawler.start(true); // 同步启动，爬虫结束后主线程才退出
+
     }
 }

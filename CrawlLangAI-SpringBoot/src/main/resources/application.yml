@@ -9,7 +9,7 @@ spring:
       api-key: ${DASHSCOPE_API_KEY}
       chat:
         options:
-          model: ${CHAT_MODEL:qwen-plus}
+          model: ${CHAT_MODEL:qwen-max}
           max-tokens: ${MAX_TOKEN:300}
       embedding:
         options:

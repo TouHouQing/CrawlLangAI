@@ -1,30 +1,34 @@
 package com.touhouqing.crawllangai.controller;
 
 import com.touhouqing.crawllangai.common.Result;
-import com.touhouqing.crawllangai.service.AnnouncementTitleService;
+import com.touhouqing.crawllangai.service.AnnouncementDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
  * @author TouHouQing
- * @since 2025-08-30
+ * @since 2025-09-01
  */
 @RestController
-@RequestMapping("/announcement-title")
+@RequestMapping("/announcement-detail")
 @RequiredArgsConstructor
-public class AnnouncementTitleController {
+public class AnnouncementDetailController {
 
-    private final AnnouncementTitleService announcementTitleService;
+    private final AnnouncementDetailService announcementDetailService;
 
     /**
-     * 爬取公告
+     * 提取并保存公告详情
      */
     @GetMapping
-    public Result crawler() {
-        announcementTitleService.crawler();
+    public Result announcementDetail() throws Exception {
+        announcementDetailService.crawler();
         return Result.success();
     }
+
 }
