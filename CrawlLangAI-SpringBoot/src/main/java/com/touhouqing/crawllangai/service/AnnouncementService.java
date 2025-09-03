@@ -1,6 +1,6 @@
 package com.touhouqing.crawllangai.service;
 
-import com.touhouqing.crawllangai.model.AnnouncementDetail;
+import com.touhouqing.crawllangai.model.Announcement;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,16 +11,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author TouHouQing
  * @since 2025-09-01
  */
-public interface AnnouncementDetailService extends IService<AnnouncementDetail> {
+public interface AnnouncementService extends IService<Announcement> {
 
 
     /**
      * 提取并保存公告详情
      */
-    void crawler() throws Exception;
+    void crawlerDetail() throws Exception;
 
     /**
      * 提取并保存中标详情
      */
     void crawlerBid() throws Exception;
+
+    /**
+     * 爬取公告
+     */
+    void crawlerTitle();
 }

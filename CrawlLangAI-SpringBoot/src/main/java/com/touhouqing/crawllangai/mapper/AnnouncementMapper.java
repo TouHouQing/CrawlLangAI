@@ -1,6 +1,6 @@
 package com.touhouqing.crawllangai.mapper;
 
-import com.touhouqing.crawllangai.model.AnnouncementDetail;
+import com.touhouqing.crawllangai.model.Announcement;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2025-09-01
  */
 @Mapper
-public interface AnnouncementDetailMapper extends BaseMapper<AnnouncementDetail> {
+public interface AnnouncementMapper extends BaseMapper<Announcement> {
 
 }

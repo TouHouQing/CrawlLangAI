@@ -24,8 +24,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("announcement_detail")
-public class AnnouncementDetail implements Serializable {
+@TableName("announcement")
+public class Announcement implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
