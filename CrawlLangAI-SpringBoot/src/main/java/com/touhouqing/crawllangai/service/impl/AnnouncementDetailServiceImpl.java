@@ -11,8 +11,6 @@ import org.jsoup.nodes.Document;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 
 /**
  * <p>
@@ -28,10 +26,27 @@ public class AnnouncementDetailServiceImpl extends ServiceImpl<AnnouncementDetai
 
     private final ChatClient aiClient;
 
+    /**
+     * 提取并保存公告详情
+     */
     @Override
     public void crawler() throws Exception {
-        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/viewer.do?id=776538025&ver=2");
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=761234201");
         String result = aiClient.prompt()
+                .user(content)
+                .call()
+                .content();
+        System.out.println(result);
+    }
+
+    /**
+     * 提取并保存中标详情
+     */
+    @Override
+    public void crawlerBid() throws Exception {
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=775738282&ver=2");
+        String result = aiClient.prompt()
+                .system("用户会给你提供一个markdown文本，你需要提取中标公告的中标信息和主要标的信息等信息保存到数据库中,不需要回答任何内容,只允许保存一次")
                 .user(content)
                 .call()
                 .content();

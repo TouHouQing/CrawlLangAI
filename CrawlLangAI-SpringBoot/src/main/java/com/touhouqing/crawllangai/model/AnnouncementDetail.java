@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.io.Serial;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.time.LocalDate;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -41,7 +43,7 @@ public class AnnouncementDetail implements Serializable {
      * 公告的发布日期
      */
     @TableField("release_date")
-    private String releaseDate;
+    private LocalDate releaseDate;
 
     /**
      * 公告标题
@@ -73,5 +75,16 @@ public class AnnouncementDetail implements Serializable {
     @TableField("purchase_requirement")
     private String purchaseRequirement;
 
+    /**
+     * 中标公司
+     */
+    @TableField("bid_company")
+    private String bidCompany;
+
+    /**
+     * 中标内容
+     */
+    @TableField("bid_content")
+    private String bidContent;
 
 }

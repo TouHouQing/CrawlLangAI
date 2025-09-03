@@ -18,4 +18,9 @@ public interface AnnouncementDetailService extends IService<AnnouncementDetail> 
      * 提取并保存公告详情
      */
     void crawler() throws Exception;
+
+    /**
+     * 提取并保存中标详情
+     */
+    void crawlerBid() throws Exception;
 }

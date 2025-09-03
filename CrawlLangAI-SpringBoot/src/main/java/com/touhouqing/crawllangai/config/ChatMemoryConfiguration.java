@@ -15,7 +15,7 @@ public class ChatMemoryConfiguration {
     public ChatMemory redisChatMemory(RedissonRedisChatMemoryRepository redissonRedisChatMemoryRepository) {
         return MessageWindowChatMemory.builder()
                 .chatMemoryRepository(redissonRedisChatMemoryRepository)
-                .maxMessages(10)
+                .maxMessages(2)
                 .build();
     }
 }

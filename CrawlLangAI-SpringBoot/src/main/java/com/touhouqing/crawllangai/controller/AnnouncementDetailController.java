@@ -31,4 +31,13 @@ public class AnnouncementDetailController {
         return Result.success();
     }
 
+    /**
+     * 提取并保存中标详情
+     */
+    @GetMapping("/bid")
+    public Result announcementBid() throws Exception {
+        announcementDetailService.crawlerBid();
+        return Result.success();
+    }
+
 }
