@@ -22,7 +22,7 @@ public class AnnouncementDetailTool {
             @ToolParam(description = "项目编号") String projectNumber,
             @ToolParam(description = "预算金额") String budgetAmount,
             @ToolParam(description = """
-                    采购需求描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例：\
+                    采购需求描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，遇到符号需要转义如\\"项目需求书\\"：\
                     [
                       {
                         "包号": "1",

@@ -46,7 +46,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
      */
     @Override
     public void crawlerDetail() throws Exception {
-        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=761234201");
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=762065859&ver=2");
         String result = aiClient.prompt()
                 .system("用户会给你提供一个markdown文本,你需要提取公告的详情信息,并保存到数据库中,不需要回答任何内容,只允许保存一次")
                 .user(content)
@@ -61,7 +61,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
      */
     @Override
     public void crawlerBid() throws Exception {
-        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=775738282&ver=2");
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=779734781&ver=2");
         String result = aiClient.prompt()
                 .system("用户会给你提供一个markdown文本，你需要提取中标公告的中标信息和主要标的信息等信息保存到数据库中,不需要回答任何内容,只允许保存一次")
                 .user(content)

@@ -20,7 +20,7 @@ public class AnnouncementBidTool {
     public String saveAnnouncementBid(
             @ToolParam(description = "项目编号") String projectNumber,
             @ToolParam(description = """
-                    中标信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例：\
+                    中标信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，遇到符号需要转义如\\"供应商名称\\"：\
                     [
                       {
                         "包号": "1",
@@ -32,7 +32,7 @@ public class AnnouncementBidTool {
                       }
                     ]""") String bidCompany,
              @ToolParam(description = """
-                    主要标的信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例：\
+                    主要标的信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，遇到符号需要转义如\\"名称\\"：\
                     [
                       {
                         "包号": "1",
@@ -48,12 +48,12 @@ public class AnnouncementBidTool {
         //根据项目编号查找招标详情
         Announcement announcement = announcementMapper.selectOne(new LambdaQueryWrapper<Announcement>().eq(Announcement::getProjectNumber, projectNumber));
         if (announcement == null) {
-            return "保存成功";
+            return "保存失败，项目编号不存在，停止对话，不再需要调用此工具";
         }
         //保存中标详情
         announcement.setBidCompany(bidCompany);
         announcement.setBidContent(bidContent);
         announcementMapper.updateById(announcement);
-        return "保存成功";
+        return "保存成功，停止对话，不再需要调用此工具";
     }
 }
