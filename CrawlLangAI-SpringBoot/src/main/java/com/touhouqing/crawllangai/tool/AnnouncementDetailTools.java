@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 @Component
 @RequiredArgsConstructor
-public class AnnouncementDetailTool {
+public class AnnouncementDetailTools {
 
     private final AnnouncementMapper announcementMapper;
 
@@ -22,7 +22,7 @@ public class AnnouncementDetailTool {
             @ToolParam(description = "项目编号") String projectNumber,
             @ToolParam(description = "预算金额") String budgetAmount,
             @ToolParam(description = """
-                    采购需求描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，遇到符号需要转义如\\"项目需求书\\"：\
+                    采购需求描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，名称遇到符号需要转义如\\"项目需求书\\"：\
                     [
                       {
                         "包号": "1",
@@ -30,7 +30,7 @@ public class AnnouncementDetailTool {
                         "预算（万元）": "57",
                         "最高限价（万元）": "57",
                         "采购目录": "教学仪器",
-                        "采购需求": "天津工业大学高重频飞秒激光放大器等设备购置项目（第一包：高重频飞秒激光放大器），具体内容详见\\"项目需求书\\""
+                        "采购需求": "天津工业大学高重频飞秒激光放大器等设备购置项目（第一包：高重频飞秒激光放大器），名称具体内容详见\\"项目需求书\\""
                       }
                     ]""") String purchaseRequirement
     ) {

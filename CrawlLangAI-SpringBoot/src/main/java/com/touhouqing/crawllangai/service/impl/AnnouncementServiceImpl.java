@@ -5,8 +5,8 @@ import com.touhouqing.crawllangai.mapper.AnnouncementMapper;
 import com.touhouqing.crawllangai.model.vo.AnnouncementTitleCrawlVo;
 import com.touhouqing.crawllangai.service.AnnouncementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.touhouqing.crawllangai.tool.AnnouncementBidTool;
-import com.touhouqing.crawllangai.tool.AnnouncementDetailTool;
+import com.touhouqing.crawllangai.tool.AnnouncementBidTools;
+import com.touhouqing.crawllangai.tool.AnnouncementDetailTools;
 import com.vladsch.flexmark.html2md.converter.FlexmarkHtmlConverter;
 import com.xxl.crawler.XxlCrawler;
 import com.xxl.crawler.pageloader.param.Response;
@@ -37,20 +37,20 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     private final AnnouncementMapper announcementMapper;
 
-    private final AnnouncementDetailTool announcementDetailTool;
+    private final AnnouncementDetailTools announcementDetailTools;
 
-    private final AnnouncementBidTool announcementBidTool;
+    private final AnnouncementBidTools announcementBidTools;
 
     /**
      * 提取并保存公告详情
      */
     @Override
     public void crawlerDetail() throws Exception {
-        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=762065859&ver=2");
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=761234201&ver=2");
         String result = aiClient.prompt()
                 .system("用户会给你提供一个markdown文本,你需要提取公告的详情信息,并保存到数据库中,不需要回答任何内容,只允许保存一次")
                 .user(content)
-                .tools(announcementDetailTool)
+                .tools(announcementDetailTools)
                 .call()
                 .content();
         System.out.println(result);
@@ -61,11 +61,11 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
      */
     @Override
     public void crawlerBid() throws Exception {
-        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=779734781&ver=2");
+        String content = getWebPageAsMarkdown("http://www.ccgp-tianjin.gov.cn/portal/documentView.do?method=view&id=775738282&ver=2");
         String result = aiClient.prompt()
                 .system("用户会给你提供一个markdown文本，你需要提取中标公告的中标信息和主要标的信息等信息保存到数据库中,不需要回答任何内容,只允许保存一次")
                 .user(content)
-                .tools(announcementBidTool)
+                .tools(announcementBidTools)
                 .call()
                 .content();
         System.out.println(result);
