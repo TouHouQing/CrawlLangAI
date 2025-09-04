@@ -1,4 +1,4 @@
-package com.touhouqing.crawllangai.model.vo;
+package com.touhouqing.crawllangai.model.mysql.vo;
 
 import com.xxl.crawler.annotation.PageFieldSelect;
 import com.xxl.crawler.annotation.PageSelect;

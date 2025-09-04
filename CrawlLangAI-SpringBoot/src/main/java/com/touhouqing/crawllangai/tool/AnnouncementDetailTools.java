@@ -2,7 +2,7 @@ package com.touhouqing.crawllangai.tool;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.touhouqing.crawllangai.mapper.AnnouncementMapper;
-import com.touhouqing.crawllangai.model.Announcement;
+import com.touhouqing.crawllangai.model.mysql.Announcement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;

@@ -3,8 +3,8 @@ package com.touhouqing.crawllangai.tool;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.touhouqing.crawllangai.mapper.AnnouncementMapper;
 import com.touhouqing.crawllangai.mapper.CompanyMapper;
-import com.touhouqing.crawllangai.model.Announcement;
-import com.touhouqing.crawllangai.model.Company;
+import com.touhouqing.crawllangai.model.mysql.Announcement;
+import com.touhouqing.crawllangai.model.mysql.Company;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Component;
+import com.touhouqing.crawllangai.service.ParticipantService;
 
 @Slf4j
 @Component
@@ -21,6 +22,8 @@ public class AnnouncementBidTools {
     private final AnnouncementMapper announcementMapper;
 
     private final CompanyMapper companyMapper;
+
+    private final ParticipantService participantService;
     /**
      * 保存中标详情
      */
@@ -79,6 +82,15 @@ public class AnnouncementBidTools {
                     company.setPhone(companyJson.getString("企业办公电话"));
 
                     companyMapper.insert(company);
+                }
+
+                // 保存 Neo4j 节点与关系：招标者(来自 announcement.title/publish_source?) -> 中标者
+                // 招标者名称从公告标题中一般不可直接解析，这里用发布来源作为近似招标者
+                // 若后续有更准确字段，可替换 tendererName 的来源
+                String tendererName = announcement.getPublishSource();
+                String winnerName = companyJson.getString("供应商名称");
+                if (tendererName != null && !tendererName.isEmpty()) {
+                    participantService.createBidRelation(tendererName, winnerName);
                 }
             }
         } catch (Exception e) {

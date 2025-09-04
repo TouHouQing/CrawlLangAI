@@ -1,6 +1,6 @@
 package com.touhouqing.crawllangai.mapper;
 
-import com.touhouqing.crawllangai.model.Announcement;
+import com.touhouqing.crawllangai.model.mysql.Announcement;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

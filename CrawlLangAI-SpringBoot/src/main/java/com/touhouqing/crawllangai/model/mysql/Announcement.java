@@ -1,4 +1,4 @@
-package com.touhouqing.crawllangai.model;
+package com.touhouqing.crawllangai.model.mysql;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

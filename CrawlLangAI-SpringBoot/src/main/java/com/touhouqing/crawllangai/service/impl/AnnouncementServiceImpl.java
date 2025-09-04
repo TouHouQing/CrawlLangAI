@@ -1,8 +1,8 @@
 package com.touhouqing.crawllangai.service.impl;
 
-import com.touhouqing.crawllangai.model.Announcement;
+import com.touhouqing.crawllangai.model.mysql.Announcement;
 import com.touhouqing.crawllangai.mapper.AnnouncementMapper;
-import com.touhouqing.crawllangai.model.vo.AnnouncementTitleCrawlVo;
+import com.touhouqing.crawllangai.model.mysql.vo.AnnouncementTitleCrawlVo;
 import com.touhouqing.crawllangai.service.AnnouncementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.touhouqing.crawllangai.tool.AnnouncementBidTools;

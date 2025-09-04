@@ -1,6 +1,6 @@
 package com.touhouqing.crawllangai.service;
 
-import com.touhouqing.crawllangai.model.Company;
+import com.touhouqing.crawllangai.model.mysql.Company;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

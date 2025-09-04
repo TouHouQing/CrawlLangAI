@@ -1,6 +1,6 @@
 package com.touhouqing.crawllangai.service.impl;
 
-import com.touhouqing.crawllangai.model.Company;
+import com.touhouqing.crawllangai.model.mysql.Company;
 import com.touhouqing.crawllangai.mapper.CompanyMapper;
 import com.touhouqing.crawllangai.service.CompanyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
