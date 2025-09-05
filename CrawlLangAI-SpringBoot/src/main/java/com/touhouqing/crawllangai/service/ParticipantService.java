@@ -19,4 +19,11 @@ public interface ParticipantService {
      * @param winner 中标者名称
      */
     void createBidRelation(String tenderer, String winner);
+
+    /**
+     * 创建招标者到采购代理机构的“采购代理机构”关系
+     * @param tenderer 招标者名称
+     * @param proxy 采购代理机构名称
+     */
+    void createProxyRelation(String tenderer, String proxy);
 }

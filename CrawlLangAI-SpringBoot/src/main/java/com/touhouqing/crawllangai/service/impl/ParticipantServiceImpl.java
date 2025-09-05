@@ -43,4 +43,17 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
         participantRepository.save(tendererNode);
     }
+    @Override
+    public void createProxyRelation(String tenderer, String proxy) {
+        ParticipantNode tendererNode = upsertParticipantByName(tenderer);
+        ParticipantNode proxyNode = upsertParticipantByName(proxy);
+        // 将采购代理机构加入招标者的 incoming "采购代理机构" 列表
+        List<ParticipantNode> proxyParticipants = tendererNode.getProxyParticipants();
+        if (proxyParticipants.stream().noneMatch(p -> proxy.equals(p.getName()))) {
+            proxyParticipants.add(proxyNode);
+        }
+        participantRepository.save(tendererNode);
+        // 保存采购代理机构节点
+        participantRepository.save(proxyNode);
+    }
 }

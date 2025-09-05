@@ -21,7 +21,12 @@ public class ParticipantNode implements Serializable {
     @Version
     private Long version;
 
+    //招标方指向中标方
     @Relationship(type = "中标", direction = Relationship.Direction.OUTGOING)
     private List<ParticipantNode> bidParticipants = new ArrayList<>();
+
+    //采购代理机构指向招标方
+    @Relationship(type = "招标代理", direction = Relationship.Direction.INCOMING)
+    private List<ParticipantNode> proxyParticipants = new ArrayList<>();
 
 }

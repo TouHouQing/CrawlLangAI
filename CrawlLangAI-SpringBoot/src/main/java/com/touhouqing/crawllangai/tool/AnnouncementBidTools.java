@@ -112,11 +112,23 @@ public class AnnouncementBidTools {
                 if (tendererName != null && !tendererName.isEmpty()) {
                     participantService.createBidRelation(tendererName, winnerName);
                 }
+                // 保存 Neo4j 节点与关系：招标者 -> 采购代理机构
+                // 采购代理机构名称从招标联系信息中解析
+                JSONObject contactJson = new JSONObject(tenderContact);
+                JSONArray proxyArray = contactJson.getJSONArray("采购代理机构信息");
+                if (!proxyArray.isEmpty()) {
+                    JSONObject proxyJson = proxyArray.getJSONObject(0);
+                    String proxyName = proxyJson.getString("名称");
+                    if (proxyName != null && !proxyName.isEmpty()) {
+                        participantService.createProxyRelation(tendererName, proxyName);
+                    }
+                }
             }
         } catch (Exception e) {
             log.error("解析中标公司JSON数据失败: {}", e.getMessage(), e);
-            return "保存失败，JSON数据格式错误: " + e.getMessage();
+            return "保存失败，停止对话，不再需要调用此工具 " + e.getMessage();
         }
+
         return "保存成功，停止对话，不再需要调用此工具";
     }
 }
