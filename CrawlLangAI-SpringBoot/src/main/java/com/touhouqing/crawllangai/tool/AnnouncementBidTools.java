@@ -34,7 +34,7 @@ public class AnnouncementBidTools {
                     中标信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，名称遇到符号需要转义如\\"项目需求书\\""：\
                     [{"包号": "1","供应商名称": "杭州奥创光子技术有限公司","供应商地址": "浙江省杭州市萧山区萧山经济技术开发区建设二路 858 号 D 幢二楼 216室","统一社会信用代码": "91330109MA2CCT4X1A","企业办公电话": "0571-82965130","中标金额(万元)": "56.9"}
                     ]""") String bidCompany,
-             @ToolParam(description = """
+            @ToolParam(description = """
                     主要标的信息描述，包含多个包号信息,格式要符合idea传入mysql的json格式示例，名称遇到符号需要转义如\\"项目需求书\\""：\
                     [
                       {
@@ -46,7 +46,26 @@ public class AnnouncementBidTools {
                         "数量": "1",
                         "单价(万元)": "56.9"
                       }
-                    ]""") String bidContent
+                    ]""") String bidContent,
+            @ToolParam(description = """
+                    招标联系信息，包含采购人信息，采购代理机构信息，项目联系方式等,格式要符合idea传入mysql的json格式示例，名称遇到符号需要转义如\\"项目需求书\\""：\
+                    {
+                    "采购人信息":[
+                      {
+                        "名称": "天津工业大学",
+                        "地址": "天津市西青区宾水西道399号",
+                        "联系方式": "022-83955042",
+                      }
+                    ],
+                    "采购代理机构信息":[
+                      {
+                      }
+                    ],
+                    "项目联系方式":[
+                      {
+                      }
+                    ]
+                    }""") String tenderContact
     ){
         //根据项目编号查找招标详情
         Announcement announcement = announcementMapper.selectOne(new LambdaQueryWrapper<Announcement>().eq(Announcement::getProjectNumber, projectNumber));
@@ -56,6 +75,7 @@ public class AnnouncementBidTools {
         //保存中标详情
         announcement.setBidCompany(bidCompany);
         announcement.setBidContent(bidContent);
+        announcement.setTenderContact(tenderContact);
         announcementMapper.updateById(announcement);
         //保存中标公司，先解析中标公司的json数据
         try {

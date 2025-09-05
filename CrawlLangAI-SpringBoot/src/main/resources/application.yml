@@ -14,7 +14,7 @@ spring:
       embedding:
         options:
           model: ${EMBEDDING_MODEL:text-embedding-v3}
-      base-url: ${DASHSCOPE_BASE_URL:192.168.0.104}
+      base-url: ${DASHSCOPE_BASE_URL:192.168.0.111}
     memory:
       redis:
         host: ${HOST}

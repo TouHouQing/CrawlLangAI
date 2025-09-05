@@ -87,4 +87,10 @@ public class Announcement implements Serializable {
     @TableField("bid_content")
     private String bidContent;
 
+    /**
+     * 招标联系信息
+     */
+    @TableField("tender_contact")
+    private String tenderContact;
+
 }
